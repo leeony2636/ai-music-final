@@ -15,7 +15,12 @@ Random Forest와 ResNet18 모델을 활용하여 음악 데이터를 분석하�
 음악 데이터 전처리부터 모델 학습, 예측까지의 과정을 실습했습니다.
 
 ---
+## 🌐 Live Demo
 
+AI Music Genre Classifier를 Streamlit에서 직접 실행할 수 있습니다.
+
+👉 [🚀 AI Music 실행하기](https://ai-music-final-n2pc859rmhy5egumjwztsz.streamlit.app/)
+---
 ## 🤖 사용 모델
 
 | 모델 | 설명 |
