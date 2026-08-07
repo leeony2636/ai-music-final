@@ -37,7 +37,7 @@ Random Forest와 ResNet18 모델을 활용하여 음악 데이터를 분석하�
 ---
 ## ⚙️ 실행 환경
 
-- Python 3.x
+- Python 3.11.x
 - VS Code
 - Streamlit
 ---
@@ -47,7 +47,7 @@ Random Forest와 ResNet18 모델을 활용하여 음악 데이터를 분석하�
 
 아래 명령어로 한 번에 설치할 수 있습니다.
 
-'''bash
+-bash \n
 pip install -r requirements.txt
 
 ---
