@@ -50,6 +50,7 @@ Random Forest와 ResNet18 모델을 활용하여 음악 데이터를 분석하�
 ```bash
 pip install -r requirements.txt
 ---
+
 ## 📂 프로젝트 구조
 
 ```text
