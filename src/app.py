@@ -32,9 +32,9 @@ st.set_page_config(
     layout="wide"
 )
 
-BASE_DIR = os.path.dirname(
-    os.path.abspath(__file__)
-)
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 GENRES = [
     "blues",
