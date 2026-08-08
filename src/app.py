@@ -374,6 +374,7 @@ def load_resnet_model():
 
     model_path = os.path.join(
         BASE_DIR,
+        "models",
         "resnet18_gtzan_final.pth"
     )
 
