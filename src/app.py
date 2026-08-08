@@ -394,7 +394,8 @@ def load_resnet_model():
 
     state_dict = torch.load(
         model_path,
-        map_location=DEVICE
+        map_location=DEVICE,
+        weights_only=False
     )
 
     model.load_state_dict(
