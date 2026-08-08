@@ -140,16 +140,19 @@ def load_rf_models():
 
     rf_path = os.path.join(
         BASE_DIR,
+        "models",
         "model_rf.joblib"
     )
 
     le_path = os.path.join(
         BASE_DIR,
+        "models",
         "label_encoder.joblib"
     )
 
     sc_path = os.path.join(
         BASE_DIR,
+        "models",
         "scaler.joblib"
     )
 
