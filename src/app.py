@@ -1079,66 +1079,65 @@ elif page == "8강 · ResNet18":
 
         st.stop()
 
-# ============================================================
-# AS-IS / TO-BE 모델 성능 비교
-# ============================================================
+
+    # ========================================================
+    # AS-IS / TO-BE
+    # ========================================================
 
     st.subheader(
         "📊 AS-IS / TO-BE 모델 비교"
     )
-    
-    # 8강 전용 변수명으로 충돌 방지
+
     lesson8_col_as_is, lesson8_col_to_be = st.columns(2)
-    
+
     with lesson8_col_as_is:
-    
+
         st.markdown(
             "### AS-IS"
         )
-    
+
         st.metric(
             "기존 ResNet18 정확도",
             "76.47%"
         )
-    
+
         st.caption(
             "Epoch 10 · Batch Size 64"
         )
-    
-    
+
+
     with lesson8_col_to_be:
-    
+
         st.markdown(
             "### TO-BE"
         )
-    
+
         st.metric(
             "최종 ResNet18 정확도",
             "82.32%",
             delta="+5.85%p"
         )
-    
+
         st.caption(
             "데이터 증강 및 하이퍼파라미터 조정 적용"
         )
-    
-    
-    # 비교용 데이터프레임
-# ============================================================
-# 8강 기존 모델 학습 과정
-# Validation Accuracy + Train Loss
-# ============================================================
+
+
+    # ========================================================
+    # Epoch별 Accuracy / Loss 데이터
+    # ========================================================
 
     st.subheader(
         "📈 Epoch별 학습 변화"
     )
-    
+
     lesson8_training_history_df = pd.DataFrame({
+
         "Epoch": [
             1, 2, 3, 4, 5,
             6, 7, 8, 9, 10
         ],
-    
+
         "Validation Accuracy": [
             45.99,
             63.10,
@@ -1151,7 +1150,7 @@ elif page == "8강 · ResNet18":
             77.54,
             76.47
         ],
-    
+
         "Train Loss": [
             2.0178,
             1.3673,
@@ -1165,75 +1164,186 @@ elif page == "8강 · ResNet18":
             0.6410
         ]
     })
-    
-    
-    # 8강 학습 그래프 생성
+
+
+    # ========================================================
+    # Accuracy + Loss 그래프
+    # ========================================================
+
     lesson8_fig_training, lesson8_ax_accuracy = plt.subplots(
-        figsize=(10, 5)
+        figsize=(7, 3.5)
     )
-    
-    
-    # 왼쪽 Y축 : 검증 정확도
+
     lesson8_ax_accuracy.plot(
         lesson8_training_history_df["Epoch"],
         lesson8_training_history_df["Validation Accuracy"],
+        color="tab:blue",
         marker="o",
+        linewidth=2,
+        markersize=4,
         label="Validation Accuracy"
     )
-    
+
     lesson8_ax_accuracy.set_xlabel(
         "Epoch"
     )
-    
+
     lesson8_ax_accuracy.set_ylabel(
-        "Validation Accuracy (%)"
+        "Validation Accuracy (%)",
+        color="tab:blue"
     )
-    
+
+    lesson8_ax_accuracy.tick_params(
+        axis="y",
+        labelcolor="tab:blue"
+    )
+
     lesson8_ax_accuracy.set_xticks(
         lesson8_training_history_df["Epoch"]
     )
-    
+
     lesson8_ax_accuracy.grid(
-        alpha=0.3
+        alpha=0.2
     )
-    
-    
+
+
     # 오른쪽 Y축 : Train Loss
     lesson8_ax_loss = lesson8_ax_accuracy.twinx()
-    
+
     lesson8_ax_loss.plot(
         lesson8_training_history_df["Epoch"],
         lesson8_training_history_df["Train Loss"],
+        color="tab:orange",
         marker="s",
         linestyle="--",
+        linewidth=2,
+        markersize=4,
         label="Train Loss"
     )
-    
+
     lesson8_ax_loss.set_ylabel(
-        "Train Loss"
+        "Train Loss",
+        color="tab:orange"
     )
-    
-    
+
+    lesson8_ax_loss.tick_params(
+        axis="y",
+        labelcolor="tab:orange"
+    )
+
     lesson8_fig_training.suptitle(
-        "Epoch별 Validation Accuracy / Train Loss"
+        "Epoch별 Validation Accuracy / Train Loss",
+        fontsize=11
     )
-    
+
     lesson8_fig_training.tight_layout()
-    
+
     st.pyplot(
-        lesson8_fig_training
+        lesson8_fig_training,
+        use_container_width=False
     )
-    
+
     plt.close(
         lesson8_fig_training
     )
-    
-    
+
+
+    # ========================================================
+    # Learning Rate 데이터
+    # ========================================================
+
+    lesson8_learning_rate_df = pd.DataFrame({
+
+        "Epoch": [
+            1, 2, 3, 4, 5,
+            6, 7, 8, 9, 10
+        ],
+
+        "Learning Rate": [
+            0.00010000,
+            0.00009758,
+            0.00009055,
+            0.00007960,
+            0.00006580,
+            0.00005050,
+            0.00003520,
+            0.00002140,
+            0.00001045,
+            0.00000342
+        ]
+    })
+
+
+    # ========================================================
+    # Learning Rate 그래프
+    # ========================================================
+
+    st.subheader(
+        "⚙️ Epoch별 Learning Rate 변화"
+    )
+
+    lesson8_fig_lr, lesson8_ax_lr = plt.subplots(
+        figsize=(7, 2.8)
+    )
+
+    lesson8_ax_lr.plot(
+        lesson8_learning_rate_df["Epoch"],
+        lesson8_learning_rate_df["Learning Rate"],
+        color="tab:green",
+        marker="o",
+        linewidth=2,
+        markersize=4
+    )
+
+    lesson8_ax_lr.set_xlabel(
+        "Epoch"
+    )
+
+    lesson8_ax_lr.set_ylabel(
+        "Learning Rate",
+        color="tab:green"
+    )
+
+    lesson8_ax_lr.tick_params(
+        axis="y",
+        labelcolor="tab:green"
+    )
+
+    lesson8_ax_lr.set_xticks(
+        lesson8_learning_rate_df["Epoch"]
+    )
+
+    lesson8_ax_lr.grid(
+        alpha=0.2
+    )
+
+    lesson8_ax_lr.set_title(
+        "Epoch별 Learning Rate",
+        fontsize=11
+    )
+
+    lesson8_fig_lr.tight_layout()
+
+    st.pyplot(
+        lesson8_fig_lr,
+        use_container_width=False
+    )
+
+    plt.close(
+        lesson8_fig_lr
+    )
+
+
     st.caption(
         "기존 ResNet18 76.47% → "
         "최종 ResNet18 82.32% "
         "(+5.85%p)"
     )
+
+
+    # ========================================================
+    # WAV 파일 업로드 및 최종 모델 예측
+    # ========================================================
 
     uploaded_file = st.file_uploader(
         "WAV 파일 업로드",
@@ -1268,6 +1378,11 @@ elif page == "8강 · ResNet18":
             "분석 완료"
         )
 
+
+        # ====================================================
+        # 예측 결과
+        # ====================================================
+
         col1, col2, col3 = st.columns(
             3
         )
@@ -1293,6 +1408,11 @@ elif page == "8강 · ResNet18":
                 f"{segment_count}개"
             )
 
+
+        # ====================================================
+        # 확률 / 멜스펙트로그램
+        # ====================================================
+
         col_left, col_right = st.columns(
             2
         )
@@ -1316,6 +1436,7 @@ elif page == "8강 · ResNet18":
                 fig
             )
 
+
         with col_right:
 
             st.subheader(
@@ -1334,6 +1455,7 @@ elif page == "8강 · ResNet18":
             plt.close(
                 fig
             )
+
 
         st.caption(
             "전체 음악을 3초 단위로 분석한 뒤 "
