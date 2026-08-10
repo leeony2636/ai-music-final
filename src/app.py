@@ -1124,15 +1124,10 @@ elif page == "8강 · ResNet18":
 
 
     # ========================================================
-    # Epoch별 Accuracy / Loss 데이터
+    # 8강 학습 데이터
     # ========================================================
 
-    st.subheader(
-        "📈 Epoch별 학습 변화"
-    )
-
     lesson8_training_history_df = pd.DataFrame({
-
         "Epoch": [
             1, 2, 3, 4, 5,
             6, 7, 8, 9, 10
@@ -1166,12 +1161,44 @@ elif page == "8강 · ResNet18":
     })
 
 
+    lesson8_learning_rate_df = pd.DataFrame({
+        "Epoch": [
+            1, 2, 3, 4, 5,
+            6, 7, 8, 9, 10
+        ],
+
+        "Learning Rate": [
+            0.00010000,
+            0.00009758,
+            0.00009055,
+            0.00007960,
+            0.00006580,
+            0.00005050,
+            0.00003520,
+            0.00002140,
+            0.00001045,
+            0.00000342
+        ]
+    })
+
+
     # ========================================================
-    # Accuracy + Loss 그래프
+    # 학습 과정 그래프
+    # ========================================================
+
+    st.subheader(
+        "📈 모델 학습 과정"
+    )
+
+    lesson8_graph_left, lesson8_graph_right = st.columns(2)
+
+
+    # ========================================================
+    # 왼쪽 : Accuracy + Loss
     # ========================================================
 
     lesson8_fig_training, lesson8_ax_accuracy = plt.subplots(
-        figsize=(7, 3.5)
+        figsize=(5.2, 3.2)
     )
 
     lesson8_ax_accuracy.plot(
@@ -1180,8 +1207,7 @@ elif page == "8강 · ResNet18":
         color="tab:blue",
         marker="o",
         linewidth=2,
-        markersize=4,
-        label="Validation Accuracy"
+        markersize=3
     )
 
     lesson8_ax_accuracy.set_xlabel(
@@ -1217,8 +1243,7 @@ elif page == "8강 · ResNet18":
         marker="s",
         linestyle="--",
         linewidth=2,
-        markersize=4,
-        label="Train Loss"
+        markersize=3
     )
 
     lesson8_ax_loss.set_ylabel(
@@ -1231,59 +1256,21 @@ elif page == "8강 · ResNet18":
         labelcolor="tab:orange"
     )
 
-    lesson8_fig_training.suptitle(
-        "Epoch별 Validation Accuracy / Train Loss",
-        fontsize=11
+    # Matplotlib 한글 깨짐 방지를 위해 영어 제목 사용
+    lesson8_ax_accuracy.set_title(
+        "Accuracy / Loss by Epoch",
+        fontsize=10
     )
 
     lesson8_fig_training.tight_layout()
 
-    st.pyplot(
-        lesson8_fig_training,
-        use_container_width=False
-    )
-
-    plt.close(
-        lesson8_fig_training
-    )
-
 
     # ========================================================
-    # Learning Rate 데이터
+    # 오른쪽 : Learning Rate
     # ========================================================
-
-    lesson8_learning_rate_df = pd.DataFrame({
-
-        "Epoch": [
-            1, 2, 3, 4, 5,
-            6, 7, 8, 9, 10
-        ],
-
-        "Learning Rate": [
-            0.00010000,
-            0.00009758,
-            0.00009055,
-            0.00007960,
-            0.00006580,
-            0.00005050,
-            0.00003520,
-            0.00002140,
-            0.00001045,
-            0.00000342
-        ]
-    })
-
-
-    # ========================================================
-    # Learning Rate 그래프
-    # ========================================================
-
-    st.subheader(
-        "⚙️ Epoch별 Learning Rate 변화"
-    )
 
     lesson8_fig_lr, lesson8_ax_lr = plt.subplots(
-        figsize=(7, 2.8)
+        figsize=(5.2, 3.2)
     )
 
     lesson8_ax_lr.plot(
@@ -1292,7 +1279,7 @@ elif page == "8강 · ResNet18":
         color="tab:green",
         marker="o",
         linewidth=2,
-        markersize=4
+        markersize=3
     )
 
     lesson8_ax_lr.set_xlabel(
@@ -1317,16 +1304,45 @@ elif page == "8강 · ResNet18":
         alpha=0.2
     )
 
+    # Matplotlib 한글 깨짐 방지를 위해 영어 제목 사용
     lesson8_ax_lr.set_title(
-        "Epoch별 Learning Rate",
-        fontsize=11
+        "Learning Rate by Epoch",
+        fontsize=10
     )
 
     lesson8_fig_lr.tight_layout()
 
-    st.pyplot(
-        lesson8_fig_lr,
-        use_container_width=False
+
+    # ========================================================
+    # 좌 / 우 한 화면 출력
+    # ========================================================
+
+    with lesson8_graph_left:
+
+        st.markdown(
+            "**Validation Accuracy / Train Loss**"
+        )
+
+        st.pyplot(
+            lesson8_fig_training,
+            use_container_width=True
+        )
+
+
+    with lesson8_graph_right:
+
+        st.markdown(
+            "**Learning Rate**"
+        )
+
+        st.pyplot(
+            lesson8_fig_lr,
+            use_container_width=True
+        )
+
+
+    plt.close(
+        lesson8_fig_training
     )
 
     plt.close(
