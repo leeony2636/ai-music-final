@@ -1124,23 +1124,108 @@ elif page == "8강 · ResNet18":
     
     
     # 비교용 데이터프레임
-    lesson8_compare_df = pd.DataFrame({
-        "모델": [
-            "AS-IS",
-            "TO-BE"
+# ============================================================
+# 8강 기존 모델 학습 과정
+# Validation Accuracy + Train Loss
+# ============================================================
+
+    st.subheader(
+        "📈 Epoch별 학습 변화"
+    )
+    
+    lesson8_training_history_df = pd.DataFrame({
+        "Epoch": [
+            1, 2, 3, 4, 5,
+            6, 7, 8, 9, 10
         ],
-        "정확도": [
-            76.47,
-            82.32
+    
+        "Validation Accuracy": [
+            45.99,
+            63.10,
+            66.31,
+            74.33,
+            74.33,
+            75.94,
+            74.33,
+            75.94,
+            77.54,
+            76.47
+        ],
+    
+        "Train Loss": [
+            2.0178,
+            1.3673,
+            1.1178,
+            0.9095,
+            0.8398,
+            0.7478,
+            0.7008,
+            0.6821,
+            0.6658,
+            0.6410
         ]
     })
     
     
-    # 정확도 비교 막대그래프
-    st.bar_chart(
-        lesson8_compare_df,
-        x="모델",
-        y="정확도"
+    # 8강 학습 그래프 생성
+    lesson8_fig_training, lesson8_ax_accuracy = plt.subplots(
+        figsize=(10, 5)
+    )
+    
+    
+    # 왼쪽 Y축 : 검증 정확도
+    lesson8_ax_accuracy.plot(
+        lesson8_training_history_df["Epoch"],
+        lesson8_training_history_df["Validation Accuracy"],
+        marker="o",
+        label="Validation Accuracy"
+    )
+    
+    lesson8_ax_accuracy.set_xlabel(
+        "Epoch"
+    )
+    
+    lesson8_ax_accuracy.set_ylabel(
+        "Validation Accuracy (%)"
+    )
+    
+    lesson8_ax_accuracy.set_xticks(
+        lesson8_training_history_df["Epoch"]
+    )
+    
+    lesson8_ax_accuracy.grid(
+        alpha=0.3
+    )
+    
+    
+    # 오른쪽 Y축 : Train Loss
+    lesson8_ax_loss = lesson8_ax_accuracy.twinx()
+    
+    lesson8_ax_loss.plot(
+        lesson8_training_history_df["Epoch"],
+        lesson8_training_history_df["Train Loss"],
+        marker="s",
+        linestyle="--",
+        label="Train Loss"
+    )
+    
+    lesson8_ax_loss.set_ylabel(
+        "Train Loss"
+    )
+    
+    
+    lesson8_fig_training.suptitle(
+        "Epoch별 Validation Accuracy / Train Loss"
+    )
+    
+    lesson8_fig_training.tight_layout()
+    
+    st.pyplot(
+        lesson8_fig_training
+    )
+    
+    plt.close(
+        lesson8_fig_training
     )
     
     
