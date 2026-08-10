@@ -100,6 +100,9 @@ streamlit run src/app.py
 
 ai-music-final/
 │
+├── assets/
+│   └── training_result.png
+│
 ├── models/
 │   ├── model_rf.joblib
 │   ├── label_encoder.joblib
