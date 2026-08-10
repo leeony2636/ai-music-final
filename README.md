@@ -44,15 +44,16 @@ ImageNet 사전학습 ResNet18을 기반으로 GTZAN 음악 데이터를 학습�
 
 ## 📈 모델 학습 과정
 
-Epoch별 학습 결과를 그래프로 시각화하여 학습 과정의 변화를 확인할 수 있도록 구성했습니다.
+Epoch별 Validation Accuracy, Train Loss, Learning Rate 변화를 시각화했습니다.
 
-- Validation Accuracy 변화
-- Train Loss 변화
-- Learning Rate 변화
+<p align="center">
+  <img src="assets/training_result.png" width="900">
+</p>
 
-기존 모델은 Epoch 9에서 최고 검증 정확도 **77.54%**를 기록했으며,  
-최종 개선 모델은 검증 정확도 **82.32%**를 기록했습니다.
-
+- 기존 ResNet18 검증 정확도: **76.47%**
+- 기존 모델 최고 검증 정확도: **77.54%**
+- 최종 ResNet18 검증 정확도: **82.32%**
+- 성능 향상: **+5.85%p**
 ---
 
 ## 🎧 예측 방식
