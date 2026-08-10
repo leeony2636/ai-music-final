@@ -1079,8 +1079,75 @@ elif page == "8강 · ResNet18":
 
         st.stop()
 
-    st.info(
-        "최종 검증 정확도: 82.32%"
+# ============================================================
+# AS-IS / TO-BE 모델 성능 비교
+# ============================================================
+
+    st.subheader(
+        "📊 AS-IS / TO-BE 모델 비교"
+    )
+    
+    # 8강 전용 변수명으로 충돌 방지
+    lesson8_col_as_is, lesson8_col_to_be = st.columns(2)
+    
+    with lesson8_col_as_is:
+    
+        st.markdown(
+            "### AS-IS"
+        )
+    
+        st.metric(
+            "기존 ResNet18 정확도",
+            "76.47%"
+        )
+    
+        st.caption(
+            "Epoch 10 · Batch Size 64"
+        )
+    
+    
+    with lesson8_col_to_be:
+    
+        st.markdown(
+            "### TO-BE"
+        )
+    
+        st.metric(
+            "최종 ResNet18 정확도",
+            "82.32%",
+            delta="+5.85%p"
+        )
+    
+        st.caption(
+            "데이터 증강 및 하이퍼파라미터 조정 적용"
+        )
+    
+    
+    # 비교용 데이터프레임
+    lesson8_compare_df = pd.DataFrame({
+        "모델": [
+            "AS-IS",
+            "TO-BE"
+        ],
+        "정확도": [
+            76.47,
+            82.32
+        ]
+    })
+    
+    
+    # 정확도 비교 막대그래프
+    st.bar_chart(
+        lesson8_compare_df,
+        x="모델",
+        y="정확도"
+    )
+    
+    
+    st.caption(
+        "기존 ResNet18 76.47% → "
+        "최종 ResNet18 82.32% "
+        "(+5.85%p)"
     )
 
     uploaded_file = st.file_uploader(
